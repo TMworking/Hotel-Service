@@ -1,0 +1,106 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-visitors
+      author: maksim
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: SELECT COUNT(*) FROM visitor
+      changes:
+        - loadData:
+            file: csv/Visitors.csv
+            tableName: visitor
+            separator: ","
+            encoding: UTF-8
+            comment: "Loading data from Visitors.csv"
+
+  - changeSet:
+      id: insert-rooms
+      author: maksim
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: SELECT COUNT(*) FROM room
+      changes:
+        - loadData:
+            file: csv/Rooms.csv
+            tableName: room
+            separator: ","
+            encoding: UTF-8
+
+  - changeSet:
+      id: insert-bookings
+      author: maksim
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: SELECT COUNT(*) FROM booking
+      changes:
+        - loadData:
+            file: csv/Bookings.csv
+            tableName: booking
+            separator: ","
+            encoding: UTF-8
+
+  - changeSet:
+      id: insert-facilities
+      author: maksim
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: SELECT COUNT(*) FROM facility
+      changes:
+        - loadData:
+            file: csv/Facilities.csv
+            tableName: facility
+            separator: ","
+            encoding: UTF-8
+
+  - changeSet:
+      id: insert-facility-orders
+      author: maksim
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: SELECT COUNT(*) FROM facilityorder
+      changes:
+        - loadData:
+            file: csv/FacilityOrders.csv
+            tableName: facilityorder
+            separator: ","
+            encoding: UTF-8
+
+  - changeSet:
+      id: insert-roles
+      author: maksim
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: SELECT COUNT(*) FROM role
+      changes:
+        - loadData:
+            file: csv/Roles.csv
+            tableName: role
+            separator: ","
+            encoding: UTF-8
+
+  - changeSet:
+      id: insert-users
+      author: maksim
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: SELECT COUNT(*) FROM user
+      changes:
+        - loadData:
+            file: csv/Users.csv
+            tableName: user
+            separator: ","
+            encoding: UTF-8

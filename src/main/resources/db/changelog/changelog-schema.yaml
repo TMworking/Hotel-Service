@@ -1,0 +1,224 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-schema
+      author: maksim
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: visitor
+        - not:
+            - tableExists:
+                tableName: room
+        - not:
+            - tableExists:
+                tableName: booking
+        - not:
+            - tableExists:
+                tableName: facility
+        - not:
+            - tableExists:
+                tableName: facilityorder
+      changes:
+        - createTable:
+            tableName: visitor
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(50)
+              - column:
+                  name: surname
+                  type: VARCHAR(50)
+              - column:
+                  name: passport
+                  type: VARCHAR(50)
+                  constraints:
+                    unique: true
+
+        - createTable:
+            tableName: room
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: room_number
+                  type: VARCHAR(50)
+                  constraints:
+                    unique: true
+              - column:
+                  name: price
+                  type: DECIMAL(10,2)
+              - column:
+                  name: status
+                  type: ENUM('FREE', 'OCCUPIED', 'REPAIRED', 'SERVICED')
+                  defaultValue: 'FREE'
+              - column:
+                  name: room_type
+                  type: ENUM('BASIC', 'DELUXE', 'PRESIDENT')
+
+        - createTable:
+            tableName: booking
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: visitor_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_booking_visitor
+                    references: visitor(id)
+                    onDelete: CASCADE
+              - column:
+                  name: room_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_booking_room
+                    references: room(id)
+                    onDelete: CASCADE
+              - column:
+                  name: settle_date
+                  type: DATETIME
+              - column:
+                  name: duration
+                  type: INT
+
+        - createTable:
+            tableName: facility
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: cost
+                  type: DECIMAL(10,2)
+              - column:
+                  name: facility_type
+                  type: ENUM('BUFFET', 'SWIMMING', 'CLEANING')
+
+        - createTable:
+            tableName: facilityorder
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: facility_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_facility_order_facility
+                    references: facility(id)
+                    onDelete: CASCADE
+              - column:
+                  name: visitor_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_facility_order_visitor
+                    references: visitor(id)
+                    onDelete: CASCADE
+              - column:
+                  name: date
+                  type: DATETIME
+
+        - createTable:
+            - tableName: role
+            - columns:
+                - column:
+                    name: id
+                    type: BIGINT
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: role_name
+                    type: ENUM('ADMIN', 'USER', 'NONE')
+                    defaultValue: 'USER'
+                    constraints:
+                      nullable: false
+
+        - createTable:
+           - tableName: user
+           - columns:
+               - column:
+                   name: id
+                   type: BIGINT
+                   autoIncrement: true
+                   constraints:
+                     primaryKey: true
+                     nullable: false
+               - column:
+                   name: username
+                   type: VARCHAR(50)
+                   constraints:
+                     unique: true
+               - column:
+                   name: password
+                   type: VARCHAR(255)
+               - column:
+                   name: role_id
+                   type: BIGINT
+                   constraints:
+                     foreignKeyName: fk_user_role
+                     references: role(id)
+                     onDelete: CASCADE
+               - column:
+                   name: is_enabled
+                   type: TINYINT(1)
+                   defaultValue: true
+                   constraints:
+                     nullable: false
+
+        - createTable:
+            tableName: refresh_token
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: token
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_refresh_token_user
+                    referencedTableName: user(id)
+                    onDelete: CASCADE
+              - column:
+                  name: expiry_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false

@@ -1,0 +1,76 @@
+[ {
+  "roomNumber" : "101",
+  "price" : 100.00,
+  "status" : "OCCUPIED",
+  "roomType" : "BASIC",
+  "bookings" : [ {
+    "visitor" : {
+      "name" : "Maksim",
+      "surname" : "Travin",
+      "passport" : "132131245",
+      "facilityOrderList" : [ {
+        "facility" : {
+          "cost" : 30.00,
+          "facilityType" : "BUFFET"
+        },
+        "date" : "2024-12-16T00:00:00"
+      } ]
+    },
+    "settleDate" : "2024-12-16T00:00:00",
+    "duration" : 10
+  } ]
+}, {
+  "roomNumber" : "102",
+  "price" : 200.00,
+  "status" : "OCCUPIED",
+  "roomType" : "DELUXE",
+  "bookings" : [ {
+    "visitor" : {
+      "name" : "Petya",
+      "surname" : "Petkin",
+      "passport" : "4145131",
+      "facilityOrderList" : [ {
+        "facility" : {
+          "cost" : 30.00,
+          "facilityType" : "SWIMMING"
+        },
+        "date" : "2025-01-26T00:00:00"
+      } ]
+    },
+    "settleDate" : "2025-01-25T00:00:00",
+    "duration" : 5
+  } ]
+}, {
+  "roomNumber" : "103",
+  "price" : 300.00,
+  "status" : "OCCUPIED",
+  "roomType" : "PRESIDENT",
+  "bookings" : [ {
+    "visitor" : {
+      "name" : "Gena",
+      "surname" : "Gorin",
+      "passport" : "5436313",
+      "facilityOrderList" : [ ]
+    },
+    "settleDate" : "2025-01-26T00:00:00",
+    "duration" : 10
+  } ]
+}, {
+  "roomNumber" : "104",
+  "price" : 150.00,
+  "status" : "FREE",
+  "roomType" : "BASIC",
+  "bookings" : [ ]
+}, {
+  "roomNumber" : "105",
+  "price" : 250.00,
+  "status" : "FREE",
+  "roomType" : "DELUXE",
+  "bookings" : [ ]
+}, {
+  "roomNumber" : "106",
+  "price" : 350.00,
+  "status" : "FREE",
+  "roomType" : "PRESIDENT",
+  "bookings" : [ ]
+} ]
